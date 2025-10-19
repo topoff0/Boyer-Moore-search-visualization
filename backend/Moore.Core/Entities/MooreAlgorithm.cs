@@ -5,15 +5,20 @@ namespace Moore.Core.Entities
     public class MooreAlgorithm : Algorithm
     {
         private MooreAlgorithm() { }
-        public MooreAlgorithm(MooreDto dto)
+        public MooreAlgorithm(SearchRequest request)
         {
-            Input = dto.Input;
-            LookingWord = dto.LookingWord;
+            Text = request.Text;
+            Pattern = request.Pattern;
+
+            for (int i = 0; i < Pattern.Length; i++)
+            {
+                PatternHashTable[Pattern[i]] = int.Max(1, Pattern.Length - i - 1);
+            }
         }
 
 
-        public string Input { get; set; } = default!;
-        public string LookingWord { get; set; } = default!;
-        public Dictionary<char, int> HashWordTable { get; set; } = [];
+        public string Text { get; set; } = default!;
+        public string Pattern { get; set; } = default!;
+        Dictionary<char, int> PatternHashTable { get; set; } = [];
     }
 }
