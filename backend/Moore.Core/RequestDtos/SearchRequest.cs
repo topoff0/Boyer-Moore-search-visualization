@@ -1,4 +1,4 @@
-namespace Moore.Core.Dtos
+namespace Moore.Core.RequestDtos
 {
     public record SearchRequest(string Text, string Pattern);
 }

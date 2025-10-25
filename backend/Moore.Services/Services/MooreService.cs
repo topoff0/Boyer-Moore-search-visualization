@@ -1,10 +1,10 @@
-using Moore.Core.Dtos;
 using Moore.Core.Entities;
 using Moore.Core.Interfaces;
+using Moore.Core.ResultDtos;
 
 namespace Moore.Services.Services
 {
-    public class MooreService : IMoorService
+    public class MooreService : IMooreService
     {
         public SearchResult Search(MooreAlgorithm moore)
         {
@@ -12,6 +12,7 @@ namespace Moore.Services.Services
                 return new SearchResult(false, -1, new TimeSpan(0), []);
 
             DateTime startTime = DateTime.Now;
+            DateTime finishTime;
 
             int textLength = moore.Text.Length;
             int patternLength = moore.Pattern.Length;
@@ -24,20 +25,43 @@ namespace Moore.Services.Services
 
             while (textPointer < textLength)
             {
-                while (moore.Text[textPointer] == moore.Pattern[patternPointer] && patternPointer >= 0)
+                while (patternPointer >= 0 && moore.Text[textPointer] == moore.Pattern[patternPointer])
                 {
-                    steps.Add
-                    (
-                        new SearchStep
-                        (stepNumber,
+                    steps.Add(new SearchStep(
+                        stepNumber,
                         textPointer,
                         patternPointer,
                         $"Match on step: {stepNumber}",
-                        true)
-                    );
+                        true));
 
+                    patternPointer--;
+                    textPointer--;
+                    stepNumber++;
                 }
+
+                if (patternPointer < 0)
+                {
+                    finishTime = DateTime.Now;
+                    return new SearchResult(true, textPointer, finishTime - startTime, steps);
+                }
+
+                steps.Add(new SearchStep(
+                stepNumber,
+                textPointer,
+                patternPointer,
+                $"Match on step: {stepNumber}",
+                false));
+
+                if (!moore.PatternHashTable.ContainsKey(moore.Text[textPointer]))
+                    textPointer += patternLength;
+                else
+                    textPointer += moore.PatternHashTable[moore.Text[textPointer]];
+
+                patternPointer = patternLength - 1;
             }
+
+            finishTime = DateTime.Now;
+            return new SearchResult(false, textLength - 1, finishTime - startTime, steps);
         }
 
         private static bool IsDataValid(string Text, string Pattern)

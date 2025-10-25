@@ -1,4 +1,4 @@
-using Moore.Core.Dtos;
+using Moore.Core.RequestDtos;
 
 namespace Moore.Core.Entities
 {
@@ -7,6 +7,9 @@ namespace Moore.Core.Entities
         private MooreAlgorithm() { }
         public MooreAlgorithm(SearchRequest request)
         {
+            Name = "Boyer Moore search algorithm";
+            Description = "Algorithm for search substring in string";
+
             Text = request.Text;
             Pattern = request.Pattern;
 
@@ -19,6 +22,6 @@ namespace Moore.Core.Entities
 
         public string Text { get; set; } = default!;
         public string Pattern { get; set; } = default!;
-        Dictionary<char, int> PatternHashTable { get; set; } = [];
+        public Dictionary<char, int> PatternHashTable { get; set; } = [];
     }
 }
