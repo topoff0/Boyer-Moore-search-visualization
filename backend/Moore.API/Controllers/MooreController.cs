@@ -7,16 +7,11 @@ namespace Moore.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class MooreController : ControllerBase
+    public class MooreController(IMooreService mooreService) : ControllerBase
     {
-        private readonly IMooreService _mooreService;
+        private readonly IMooreService _mooreService = mooreService;
 
-        public MooreController(IMooreService mooreService)
-        {
-            _mooreService = mooreService;
-        }
-
-        [HttpPost]
+        [HttpPost("moore/execute")]
         public IActionResult SearchSubSting([FromBody] SearchRequest request)
         {
             MooreAlgorithm algo = new(request);

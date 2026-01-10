@@ -52,10 +52,10 @@ namespace Moore.Services.Services
                 $"Match on step: {stepNumber}",
                 false));
 
-                if (!moore.PatternHashTable.ContainsKey(moore.Text[textPointer]))
+                if (!moore.PatternHashTable.TryGetValue(moore.Text[textPointer], out int value))
                     textPointer += patternLength;
                 else
-                    textPointer += moore.PatternHashTable[moore.Text[textPointer]];
+                    textPointer += value;
 
                 patternPointer = patternLength - 1;
             }
