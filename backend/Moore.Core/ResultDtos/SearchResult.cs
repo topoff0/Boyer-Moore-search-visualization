@@ -2,18 +2,10 @@ using Moore.Core.Entities;
 
 namespace Moore.Core.ResultDtos
 {
-    public class SearchResult
-    {
-        public SearchResult(bool found, int position, TimeSpan executionTime, List<SearchStep> steps)
-        {
-            Found = found;
-            Position = position;
-            ExecutionTime = executionTime;
-            Steps = steps;
-        }
-        public bool Found { get; set; }
-        public int Position { get; set; }
-        public TimeSpan ExecutionTime { get; set; }
-        List<SearchStep> Steps { get; set; } = [];
-    }
+    public record SearchResult(
+        bool Found,
+        int Position,
+        TimeSpan ExecutionTime,
+        List<SearchStep> Steps
+    );
 }

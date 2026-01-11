@@ -6,12 +6,12 @@ using Moore.Core.RequestDtos;
 namespace Moore.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/moore")]
     public class MooreController(IMooreService mooreService) : ControllerBase
     {
         private readonly IMooreService _mooreService = mooreService;
 
-        [HttpPost("moore/execute")]
+        [HttpPost("execute")]
         public IActionResult SearchSubSting([FromBody] SearchRequest request)
         {
             MooreAlgorithm algo = new(request);
