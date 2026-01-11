@@ -13,9 +13,25 @@ builder.Services.AddCustomSwagger();
 // === Services ===
 builder.Services.AddScoped<IMooreService, MooreService>();
 
+// === Configure CORS === 
+const string policyOrigins = "_myDefaltPolicyOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: policyOrigins,
+        policy =>
+        {
+            policy
+            .WithOrigins("http://localhost:5173")
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+        });
+});
+
 var app = builder.Build();
 
 app.UseCustomSwagger(app.Environment);
+
+app.UseCors(policyOrigins);
 
 app.MapControllers();
 
