@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
-import Input from "../components/Input";
+import { useState } from "react";
 import { useMooreSearch } from "../hooks/useMoore";
+import Input from "../components/Input";
+import SearchVisualization from "../components/SearchVizualization";
+import { useStepAnimation } from "../hooks/useStepAnimation";
 
 const Main = () => {
 
@@ -9,29 +11,30 @@ const Main = () => {
 
   const { data, isLoading, error } = useMooreSearch(text, pattern)
 
-  // useEffect(() => {
-  //   if (data) {
-  //     console.log("Moore result:", data);
-  //   }
-  // }, [data]);
+  const { currentStep, isFinished } = useStepAnimation(data?.steps, 2000);
 
   return (
     <>
       <div className="bg-rose-300 w-screen h-screen flex items-center justify-center">
         <div className="container min-h-screen flex flex-col gap-y-8 items-center justify-start pt-24">
-          <h1 className="text-center text-3xl font-mono font-extrabold text-pink-50 mb-24">Booyer Moore Seach vizualization</h1>
-          {isLoading && <p>Searching...</p>}
-          {error && <p className="text-red-400">{error.message}</p>}
+
+          <h1
+            className="text-center text-3xl font-mono font-extrabold text-pink-50 mb-24">
+            Boyer Moore Seach vizualization
+          </h1>
+
+          {isLoading && <p className="text-xl text-center font-mono font-extrabold text-pink-200">Searching...</p>}
+          {error && <p className="text-xl text-center font-mono font-extrabold text-red-400">{error.message}</p>}
 
           {data && (
             <>
-              <p className="text-2xl text-center font-mono font-extrabold text-pink-50 mb-24">
-                {`Found: ${data.found ? "yes" : "no"}`}
-              </p>
-
-              <p className="text-2xl text-center font-mono font-extrabold text-pink-50 mb-24">
-                {`Execution time: ${data.executionTime}`}
-              </p>
+              <SearchVisualization
+                text={text}
+                pattern={pattern}
+                step={currentStep}
+                found={isFinished ? data.found : null}
+                executionTime={data.executionTime}
+              />
             </>
           )}
 

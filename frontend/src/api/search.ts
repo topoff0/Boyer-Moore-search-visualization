@@ -2,7 +2,7 @@ import axios from "axios";
 
 export interface SearchStep {
   stepNumber: number;
-  stepPointer: number;
+  textPointer: number;
   patternPointer: number;
   description: string;
   isMatch: boolean;
