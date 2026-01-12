@@ -67,8 +67,8 @@ namespace Moore.Services.Services
         private static bool IsDataValid(string Text, string Pattern)
         {
             return !string.IsNullOrEmpty(Text)
-                    && !string.IsNullOrEmpty(Pattern)
-                    && Pattern.Length < Text.Length;
+                && !string.IsNullOrEmpty(Pattern)
+                && Pattern.Length <= Text.Length;
         }
     }
 }

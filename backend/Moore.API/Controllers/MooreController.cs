@@ -14,7 +14,6 @@ namespace Moore.API.Controllers
         [HttpPost("execute")]
         public IActionResult SearchSubSting([FromBody] SearchRequest request)
         {
-            //FIX: Bug with equals string such as "string" and "string" (return: found = false)
             MooreAlgorithm algo = new(request);
             var result = _mooreService.Search(algo);
             return Ok(result);
