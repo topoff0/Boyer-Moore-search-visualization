@@ -31,7 +31,7 @@ namespace Moore.Services.Services
                         stepNumber,
                         textPointer,
                         patternPointer,
-                        $"Match on step: {stepNumber}",
+                        $"Match on step {stepNumber}: true",
                         true));
 
                     patternPointer--;
@@ -49,10 +49,10 @@ namespace Moore.Services.Services
                 stepNumber,
                 textPointer,
                 patternPointer,
-                $"Match on step: {stepNumber}",
+                $"Match on step {stepNumber++}: false",
                 false));
 
-                if (!moore.PatternHashTable.TryGetValue(moore.Text[textPointer], out int value))
+                if (!moore.ShiftTable.TryGetValue(moore.Text[textPointer], out int value))
                     textPointer += patternLength;
                 else
                     textPointer += value;
