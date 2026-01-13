@@ -1,14 +1,13 @@
-interface InputProps {
+interface TextInputProps {
   label?: string;
   placeholder?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  type?: string;
   className?: string;
 }
 
 
-const Input = ({ label, placeholder = "", value, onChange, type = "text", className }: InputProps) => {
+const TextInput = ({ label, placeholder = "", value, onChange, className }: TextInputProps) => {
   return (
     <div className="flex flex-col w-full max-w-sm">
       {label && (
@@ -17,7 +16,6 @@ const Input = ({ label, placeholder = "", value, onChange, type = "text", classN
         </label>
       )}
       <input
-        type={type}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
@@ -46,4 +44,4 @@ const Input = ({ label, placeholder = "", value, onChange, type = "text", classN
   )
 }
 
-export default Input
+export default TextInput

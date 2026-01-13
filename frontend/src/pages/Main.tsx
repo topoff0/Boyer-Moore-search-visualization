@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useMooreSearch } from "../hooks/useMoore";
-import Input from "../components/Input";
 import SearchVisualization from "../components/SearchVizualization";
 import { useStepAnimation } from "../hooks/useStepAnimation";
+import TextInput from "../components/TextInput";
+import RangeInput from "../components/RangeInput";
 
 const Main = () => {
 
@@ -11,7 +12,9 @@ const Main = () => {
 
   const { data, isLoading, error } = useMooreSearch(text, pattern)
 
-  const { currentStep, isFinished } = useStepAnimation(data?.steps, 2000);
+  const [animationSpeed, setAnimationSpeed] = useState(500);
+
+  const { currentStep, isFinished } = useStepAnimation(data?.steps, animationSpeed);
 
   return (
     <>
@@ -39,19 +42,27 @@ const Main = () => {
           )}
 
           <div className="container w-full flex items-center justify-center gap-8">
-            <Input
+            <TextInput
               label="String for search"
               placeholder="Text example..."
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
-            <Input
+            <TextInput
               label="String for search"
               placeholder="Text example..."
               value={pattern}
               onChange={(e) => setPattern(e.target.value)}
             />
           </div>
+          <RangeInput
+            min={100}
+            max={2500}
+            value={animationSpeed}
+            step={100}
+            onChange={(e) => setAnimationSpeed(Number(e.target.value))}
+            label={`Delay: ${animationSpeed}(ms)`}
+          />
         </div>
       </div>
     </>
