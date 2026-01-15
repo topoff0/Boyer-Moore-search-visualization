@@ -21,47 +21,49 @@ namespace Moore.Services.Services
             int stepNumber = 1;
 
             int textPointer = patternLength - 1;
-            int patternPointer = patternLength - 1;
 
             while (textPointer < textLength)
             {
-                while (patternPointer >= 0 && moore.Text[textPointer] == moore.Pattern[patternPointer])
+                int currentTextPointer = textPointer;
+                int patternPointer = patternLength - 1;
+
+                while (patternPointer >= 0 &&
+                       moore.Text[currentTextPointer] == moore.Pattern[patternPointer])
                 {
                     steps.Add(new SearchStep(
-                        stepNumber,
-                        textPointer,
+                        stepNumber++,
+                        currentTextPointer,
                         patternPointer,
                         $"Match on step {stepNumber}: true",
                         true));
 
+                    currentTextPointer--;
                     patternPointer--;
-                    textPointer--;
-                    stepNumber++;
                 }
 
                 if (patternPointer < 0)
                 {
                     finishTime = DateTime.Now;
-                    return new SearchResult(true, textPointer, finishTime - startTime, steps);
+                    return new SearchResult(true, currentTextPointer + 1, finishTime - startTime, steps);
                 }
 
                 steps.Add(new SearchStep(
                 stepNumber,
-                textPointer,
+                currentTextPointer,
                 patternPointer,
                 $"Match on step {stepNumber++}: false",
                 false));
 
-                if (!moore.ShiftTable.TryGetValue(moore.Text[textPointer], out int value))
-                    textPointer += patternLength;
-                else
-                    textPointer += value;
+                char mismatchChar = moore.Text[currentTextPointer];
 
-                patternPointer = patternLength - 1;
+                if (!moore.ShiftTable.TryGetValue(mismatchChar, out int shift))
+                    shift = patternLength;
+
+                textPointer += Math.Max(1, shift);
             }
 
             finishTime = DateTime.Now;
-            return new SearchResult(false, textLength - 1, finishTime - startTime, steps);
+            return new SearchResult(false, -1, finishTime - startTime, steps);
         }
 
         private static bool IsDataValid(string Text, string Pattern)
