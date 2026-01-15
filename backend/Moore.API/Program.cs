@@ -14,7 +14,7 @@ builder.Services.AddCustomSwagger();
 builder.Services.AddScoped<IMooreService, MooreService>();
 
 // === Configure CORS === 
-const string policyOrigins = "_myDefaltPolicyOrigins";
+const string policyOrigins = "_viteOrigins";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: policyOrigins,
