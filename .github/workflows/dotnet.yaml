@@ -19,8 +19,8 @@ jobs:
         dotnet-version: "10.0"
 
     - name: Build
-      run: dotnet build
+      run: dotnet build backend
     
     - name: Test
-      run: dotnet test
+      run: dotnet test backend
 
