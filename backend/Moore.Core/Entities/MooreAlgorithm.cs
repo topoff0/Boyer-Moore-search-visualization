@@ -4,7 +4,6 @@ namespace Moore.Core.Entities
 {
     public class MooreAlgorithm : Algorithm
     {
-        private MooreAlgorithm() { }
         public MooreAlgorithm(SearchRequest request)
         {
             Name = "Boyer Moore search algorithm";
@@ -16,9 +15,11 @@ namespace Moore.Core.Entities
             ShiftTable = BuildShiftTable(request.Pattern);
         }
 
+        private MooreAlgorithm() {}
 
-        public string Text { get; set; }
-        public string Pattern { get; set; }
+
+        public string Text { get; private set; } = string.Empty;
+        public string Pattern { get; private set; } = string.Empty;
         public Dictionary<char, int> ShiftTable { get; set; } = [];
         
 
