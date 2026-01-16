@@ -1,0 +1,25 @@
+stages:
+  - build
+  - test
+
+variables:
+  DOTNET_VERSION: "10.0"
+
+before_script:
+  - apt-get update && apt-get install -y dotnet-sdk-$DOTNET_VERSION
+
+
+build:
+  stage: build
+  script:
+    - dotnet restore
+    - dotnet build --configuration Release
+
+  artifacts:
+    paths:
+      - bin/
+
+test:
+  stage: test
+  script:
+    - dotnet test --configuration Release
