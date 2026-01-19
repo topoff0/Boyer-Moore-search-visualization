@@ -11,11 +11,14 @@ Visualization of the Boyer-Moore algorithm, one of the most effective algorithms
 1. [.NET 10](https://dotnet.microsoft.com/ru-ru/download/dotnet/10.0) 
 2. [pnpm 10.27.0+](https://pnpm.io/installation)  
 
-### (TEMPERARY START)
+### (TEMPORARY START)
+
 ```
+set -e
+
 #backend
 git clone https://github.com/topoff0/Boyer-Moore-search-visualization
-cd Boyer-Moore-search-vizualization/backend
+cd Boyer-Moore-search-visualization/backend/
 docker build -t moore-api .
 docker run --rm -d -p 8080:8080 --name moore moore-api
 
