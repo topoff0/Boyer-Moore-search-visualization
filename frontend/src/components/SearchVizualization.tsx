@@ -4,13 +4,13 @@ interface Props {
   text: string;
   pattern: string;
   step: SearchStep | null;
-  found: boolean | null;
+  isFound: boolean | null;
   executionTime: string;
 }
 
 const CELL_SIZE_REM = 2;
 
-const SearchVisualization = ({ text, pattern, step, found, executionTime }: Props) => {
+const SearchVisualization = ({ text, pattern, step, isFound, executionTime }: Props) => {
 
   const patternStart = step ? step.textPointer - step.patternPointer : 0;
 
@@ -25,9 +25,9 @@ const SearchVisualization = ({ text, pattern, step, found, executionTime }: Prop
         {text.split("").map((char, index) => {
           let className = "w-8 h-8 flex items-center justify-center rounded text-pink-900";
 
-          if (found !== null && isInPatternRange(index)) {
+          if (isFound !== null && isInPatternRange(index)) {
             // at the end highlight pattern in text
-            className = found
+            className = isFound
               ? "w-8 h-8 flex items-center justify-center rounded bg-green-400 text-white"
               : "w-8 h-8 flex items-center justify-center rounded bg-red-400 text-white";
           } else if (isInPatternRange(index)) {
@@ -70,7 +70,7 @@ const SearchVisualization = ({ text, pattern, step, found, executionTime }: Prop
                     : "bg-red-400 text-white"
                   : "text-pink-900"
                 }
-                ${found ? "bg-green-400 text-white" : ""
+                ${isFound ? "bg-green-400 text-white" : ""
                 }`}
             >
               {char}
@@ -89,7 +89,7 @@ const SearchVisualization = ({ text, pattern, step, found, executionTime }: Prop
         {`Execution time: ${executionTime}`}
       </p>
       <p className="text-sm font-bold text-pink-100 text-center transition-opacity duration-300">
-        {found ? `Found : ${found ? "True" : "False"}` : ""}
+        {isFound ? `Found : ${isFound ? "True" : "False"}` : ""}
       </p>
     </div>
   );

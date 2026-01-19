@@ -9,7 +9,7 @@ export interface SearchStep {
 }
 
 export interface SearchResult {
-  found: boolean;
+  isFound: boolean;
   position: number;
   executionTime: string;
   steps: SearchStep[];

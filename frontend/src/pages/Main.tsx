@@ -16,6 +16,7 @@ const Main = () => {
 
   const { currentStep, isFinished } = useStepAnimation(data?.steps, animationSpeed);
 
+
   return (
     <>
       <div className="bg-rose-300 w-screen h-screen flex items-center justify-center">
@@ -35,7 +36,7 @@ const Main = () => {
                 text={text}
                 pattern={pattern}
                 step={currentStep}
-                found={isFinished ? data.found : null}
+                isFound={isFinished ? data.isFound : null}
                 executionTime={data.executionTime}
               />
             </>
