@@ -16,11 +16,13 @@ export interface SearchResult {
 }
 
 export const fetchMooreSearch = async (text: string, pattern: string): Promise<SearchResult> => {
-  const { data } = await axios.post<SearchResult>("http://localhost:8080/api/moore/execute",
-    {
-      text, pattern
-    },
-  );
+  const { data } =
+    await axios.post<SearchResult>(
+      "http://localhost:8080/api/moore/execute",
+      {
+        text, pattern
+      },
+    );
   console.log(data);
   return data;
 }
