@@ -30,4 +30,6 @@ pnpm vite
 
 Now you can open `localhost:5173`.
 
-![The example of search result](./desc_img/main.png);
+## Vizual representation
+
+![The example of search result](./desc_img/main.png)
